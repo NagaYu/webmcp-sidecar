@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "webmcp-sidecar",
+  "version": "0.1.0",
+  "description": "Bring your own model to WebMCP-enabled sites: a side panel AI assistant that discovers and calls tools a page has registered via navigator.modelContext / document.modelContext.",
+  "action": {
+    "default_title": "webmcp-sidecar"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["sidePanel", "storage"],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js"],
+      "world": "ISOLATED",
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content-main-world.js"],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

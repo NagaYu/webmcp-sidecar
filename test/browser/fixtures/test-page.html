@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>webmcp-sidecar test page</title>
+  </head>
+  <body>
+    <h1>WebMCP test page</h1>
+    <div id="call-count">0</div>
+
+    <script src="/mcp-b-global.js"></script>
+    <script>
+      document.modelContext.registerTool({
+        name: "get_greeting",
+        description: "Return a friendly greeting for the given name",
+        inputSchema: {
+          type: "object",
+          properties: { name: { type: "string" } },
+          required: ["name"],
+        },
+        execute: async ({ name }) => {
+          const el = document.getElementById("call-count");
+          el.textContent = String(Number(el.textContent) + 1);
+          return `Hello, ${name}! (call #${el.textContent})`;
+        },
+      });
+    </script>
+  </body>
+</html>

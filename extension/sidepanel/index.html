@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>webmcp-sidecar</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>webmcp-sidecar</h1>
+      <button id="settings-toggle" type="button" aria-expanded="false">Settings</button>
+    </header>
+
+    <section id="settings-panel" hidden>
+      <form id="settings-form">
+        <label>
+          API base URL
+          <input id="setting-base-url" type="text" placeholder="https://api.openai.com/v1" />
+        </label>
+        <label>
+          Model
+          <input id="setting-model" type="text" placeholder="gpt-4o-mini" required />
+        </label>
+        <label>
+          API key
+          <input id="setting-api-key" type="password" required />
+        </label>
+        <button type="submit">Save</button>
+        <p class="muted">
+          Any OpenAI-compatible <code>/chat/completions</code> endpoint works — OpenAI itself, a
+          local server (Ollama, LM Studio), or a router. Stored locally in this browser only.
+        </p>
+      </form>
+    </section>
+
+    <section id="availability-notice" class="notice" hidden></section>
+
+    <section id="tool-list-section">
+      <h2>Tools on this page</h2>
+      <div id="tool-change-notice" class="notice notice-warning" hidden></div>
+      <p id="tool-list-empty" class="muted">No tools detected on the active page.</p>
+      <ul id="tool-list"></ul>
+    </section>
+
+    <section id="chat-section">
+      <div id="messages" role="log" aria-live="polite"></div>
+      <form id="chat-form">
+        <textarea
+          id="chat-input"
+          rows="2"
+          placeholder="Ask this page to do something…"
+          required
+        ></textarea>
+        <button type="submit" id="send-button">Send</button>
+      </form>
+    </section>
+
+    <script src="main.js"></script>
+  </body>
+</html>

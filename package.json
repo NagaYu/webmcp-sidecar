@@ -1,0 +1,69 @@
+{
+  "name": "webmcp-sidecar",
+  "version": "0.1.0",
+  "description": "A model-agnostic Chrome extension that turns WebMCP tools registered by a page into a usable AI assistant — bring your own model, local or remote.",
+  "license": "MIT",
+  "type": "module",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NagaYu/webmcp-sidecar.git"
+  },
+  "homepage": "https://github.com/NagaYu/webmcp-sidecar#readme",
+  "bugs": {
+    "url": "https://github.com/NagaYu/webmcp-sidecar/issues"
+  },
+  "keywords": [
+    "webmcp",
+    "model-context-protocol",
+    "browser-extension",
+    "ai-agent",
+    "on-device-ai",
+    "chrome-extension"
+  ],
+  "engines": {
+    "node": ">=18.18"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "pnpm run build:lib && pnpm run build:extension",
+    "build:lib": "tsup --config tsup.lib.config.ts",
+    "build:extension": "tsup --config tsup.extension.config.ts && node scripts/copy-extension-assets.mjs",
+    "dev:extension": "tsup --config tsup.extension.config.ts --watch --onSuccess \"node scripts/copy-extension-assets.mjs\"",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@mcp-b/global": "^4.0.0",
+    "@playwright/test": "^1.49.1",
+    "@types/chrome": "^0.0.287",
+    "@types/node": "^22.10.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
